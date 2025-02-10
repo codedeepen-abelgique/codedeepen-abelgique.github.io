@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>CodeDeepen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+      background-color: #333340;
+      color: white;
+      font-family: "Source Code Pro", monospace;
+    }
+
+    .topbar {
+      position: absolute;
+      z-index: 99;
+      width: 100%;
+      height: 100px;
+      background-color: #11111f;
+      margin: -8px;
+    }
+
+    .faketopbar {
+      height: 140px;
+    }
+
+    .buttontd {
+      max-width: 15%;
+    }
+
+    button {
+      width: 100%;
+      background-color: #111155;
+      height: 80px;
+      font-size: 30px;
+      font-family: "Source Code Pro", monospace;
+      color: white;
+    }
+
+    h1 {
+      font-size: 75px;
+      font-weight: 400;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    textarea {
+      font-family: "Source Code Pro", monospace;
+      font-size: 18px;
+      width: calc(100% - 10px);
+      color: white;
+      background-color: black;
+      tab-size: 2;
+    }
+
+    iframe {
+      width: calc(100% - 8px);
+      border: 2px solid #223344;
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="topbar">
+    <tr>
+      <td class="codedeepen">
+        <h1><span style="color: #ff4400;">CO</span><span style="color: #00ff44;">DE</span><span
+            style="color: #00bbff;">EPEN</span></h1>
+      </td>
+      <td class="buttontd">
+        <button id="run" onclick="run()"><b>RUN</b></button>
+      </td>
+      <td class="buttontd">
+        <a href="/CodeDeepen.html" download>
+          <button>Download</button>
+        </a>
+      </td>
+    </tr>
+  </table>
+  <div class="faketopbar">l</div>
+  <textarea id="code" placeholder="HTML goes here..." rows="20"></textarea>
+  <p>Output:</p>
+  <iframe id="output" height="400"></iframe>
+  <script>
+    document.getElementById('code').addEventListener('keydown', function (e) {
+      if (e.key == 'Tab') {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+
+        // set textarea value to: text before caret + tab + text after caret
+        this.value = this.value.substring(0, start) +
+          "\t" + this.value.substring(end);
+
+        // put caret at right position again
+        this.selectionStart =
+          this.selectionEnd = start + 1;
+      }
+    });
+
+    function run() {
+      const code = document.getElementById("code");
+      const output = document.getElementById("output");
+      output.srcdoc = code.value;
+    }
+  </script>
+</body>
+
+</html>
